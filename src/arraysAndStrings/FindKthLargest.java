@@ -1,17 +1,14 @@
-package miscellaneous;
+package arraysAndStrings;
 
-import java.util.Arrays;
-
-public class QuickSort {
+public class FindKthLargest {
 	static int[] arr = new int[]{6,7,5,9,8,3,2,1,4};
 	public static void main(String[] args) {
-		Arrays.stream(arr).forEach(System.out::print);
-		quickSort(0, arr.length - 1);
-		System.out.println();
-		Arrays.stream(arr).forEach(System.out::print);
+		for (int i = 1; i <= arr.length; i++) {
+			System.out.println(kthLargest(0, arr.length - 1, i));
+		}
 	}
-	
-	public static void quickSort(int low, int high) {
+
+	public static int kthLargest(int low, int high, int k) {
 		int i = low;
 		int j = high;
 		int pivot = arr[(j + i)/2];
@@ -29,12 +26,12 @@ public class QuickSort {
 			}
 			
 		}
-		if (low <= j) {
-			quickSort(low, j);
-		}
-		
-		if (i <= high) {
-			quickSort(i, high);
+		if (arr.length - k == j + 1) {
+			return pivot;
+		} else if(arr.length - k < j + 1) {
+				return kthLargest(low, j, k);
+		} else {
+			return kthLargest(i, high, k);
 		}
 	}
 	

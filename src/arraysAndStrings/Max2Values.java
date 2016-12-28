@@ -1,4 +1,4 @@
-package miscellaneous;
+package arraysAndStrings;
 
 public class Max2Values {
 	static int[] arr = new int[]{4,5,7,2,1,8,2000,2002,15,12,19};

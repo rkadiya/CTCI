@@ -1,4 +1,4 @@
-package miscellaneous;
+package arraysAndStrings;
 
 public class ThreeSortedArraysIntersection {
 	static int[] arr1 = new int[]{2,3,6,7,9};

@@ -1,4 +1,4 @@
-package miscellaneous;
+package arraysAndStrings;
 
 public class ArrayUnionIntersection {
 	public static void printUnion(int[] arr1, int[] arr2) {
