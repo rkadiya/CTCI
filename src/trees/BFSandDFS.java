@@ -15,7 +15,7 @@ public class BFSandDFS {
 				System.out.println(u.value);
 				u.state = State.visited;
 				for (Node v : u.getChildren()) {
-					if (v.state == State.unvisited) {
+					if (v.state == State.unvisited && !q.contains(v)) {
 						q.add(v);
 					}
 				}
@@ -32,34 +32,12 @@ public class BFSandDFS {
 				System.out.println(u.value);
 				u.state = State.visited;
 				for (Node v : u.getChildren()) {
-					if (v.state == State.unvisited) {
+					if (v.state == State.unvisited && !stack.contains(v)) {
 						stack.push(v);
 					}
 				}
 			}
 		}
-	}
-	
-	public static boolean isThereAPath(Node start, Node end) {
-		Queue<Node> q = new LinkedList<Node>();
-		q.add(start);
-		while (!q.isEmpty()) {
-			Node u = q.poll();
-			if (u != null) {
-				//System.out.println(u.value);
-				u.state = State.visited;
-				for (Node v : u.getChildren()) {
-					if (v.state == State.unvisited) {
-						if (v == end) {
-							return true;
-						} else {
-							q.add(v);
-						}
-					}
-				}
-			}
-		}
-		return false;
 	}
 
 	public static void main(String[] args) {
@@ -69,7 +47,7 @@ public class BFSandDFS {
 		Node node12 = new Node(12, null, null);
 		Node node11 = new Node(11, null, null);
 		Node node10 = new Node(10, null, null);
-		Node node9 = new Node(9, null, null);
+		Node node9 = new Node(9, node14, node15);
 		Node node8 = new Node(8, null, null);
 		Node node7 = new Node(7, node14, node15);
 		Node node6 = new Node(6, node12, node13);

@@ -5,43 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+//Given a binary tree, design an algorithm which creates a linked list 
+//of all the nodes at each depth (e.g., if you have a tree with depth D, you'll have D linked lists).
 public class LevelLinkedLists {
-	
-	public static void printTree(Node root) {
-	    Queue<Node> nodes= new LinkedList<>(); 
-	    List<Node> listOfNodes = new ArrayList<Node>();
-	    traverseLevels(root, listOfNodes,nodes);
-	    int count = 0,level=0;
-
-	    while (count < listOfNodes.size()){
-	        int printLen= (int) Math.pow(2, level++);
-
-	        for (int i=count; i < printLen -1 && i < listOfNodes.size();++i){
-	            System.out.print(listOfNodes.get(i).value+" ");
-	        }
-	            System.out.println();
-	            count = printLen-1;
-	    }
-	}
-	
-	private static void traverseLevels(Node root, List<Node> listOfNodes, Queue<Node> nodes) {
-	    if (root!=null){
-	        nodes.add(root);
-	        listOfNodes.add(root);
-	        while(!nodes.isEmpty()){
-	            root= nodes.poll();
-	            if (root.left!=null) {
-	                listOfNodes.add(root.left);
-	                nodes.add(root.left);
-	            }
-	            if (root.right!=null) {
-	                listOfNodes.add(root.right);
-	                nodes.add(root.right);
-	            }
-	        }
-	    }
-	}
-	
 	public static void createLevelArrayList(Node root, ArrayList<LinkedList<Node>> lists, int level) {
 		if (root == null) {
 			return;
@@ -65,6 +31,18 @@ public class LevelLinkedLists {
 		createLevelArrayList(root, lists, 0);
 		return lists;
 	}
+	
+	public static void printLevelListBST(Node node, List<Node> newlevel, List<List<Node>> levelList) {
+		List<Node> level = new LinkedList<Node>();
+		for (Node u : newlevel) {
+			level.addAll(u.getChildren());
+		}
+		
+		if (!level.isEmpty()) {
+			levelList.add(level);
+			printLevelListBST(node, level, levelList);
+		}
+	}
 
 	public static void main(String[] args) {
 		Node node15 = new Node(15, null, null);
@@ -82,7 +60,7 @@ public class LevelLinkedLists {
 		Node node3 = new Node(3, node6, node7);
 		Node node2 = new Node(2, node4, node5);
 		Node node1 = new Node(1, node2, node3);
-		printTree(node1);
+		PrintTree.printTree(node1);
 		System.out.println();
 		ArrayList<LinkedList<Node>> lists = createLevelArrayList(node1);
 		for (LinkedList<Node> list : lists) {
@@ -90,6 +68,20 @@ public class LevelLinkedLists {
 			for (Node node : list) {
 				System.out.print(node.value + " ");
 			}
+		}
+		
+		List<List<Node>> levelList = new ArrayList<>();
+		List<Node> list1 = new LinkedList<>();
+		list1.add(node1);
+		levelList.add(list1);
+		printLevelListBST(node1, list1, levelList);
+		
+		for (List<Node> list : levelList) {
+			System.out.println(list.size());
+			for (Node node : list) {
+				System.out.print(node.value + "\t");
+			}
+			System.out.println();
 		}
 	}
 
